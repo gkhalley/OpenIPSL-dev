@@ -1,8 +1,7 @@
 within OpenIPSL.Electrical.GFCs.GFMs.LimitersAndCntrlSchemes;
 model Q_v_droop_scheme "Q-v droop control scheme with Qmin/Qmax inputs"
   extends
-    OpenIPSL.Electrical.GFCs.GFMs.BasicComponentsAndCntrlSchemes.qv_droop_scheme_nolims(break
-      Qlimsig);
+    OpenIPSL.Electrical.GFCs.GFMs.BasicComponentsAndCntrlSchemes.qv_droop_scheme_nolims(useQlimsig = false);
   Qlimiter
     qlimiter(
     Qmax=Qmax,

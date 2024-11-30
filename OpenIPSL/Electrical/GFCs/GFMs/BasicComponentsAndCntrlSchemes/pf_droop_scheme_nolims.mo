@@ -45,6 +45,7 @@ model pf_droop_scheme_nolims
 
   parameter Real f0=SysData.fn "Synchronous frequency, f0 = 60 Hz"
     annotation (Dialog(group="P-f droop controller parameters"));
+  parameter Boolean usePlimsig = true "Enable or disable Plimsig connection";
   parameter Real mp=0.005 "P-f droop gain. Normal range: 0.005 - 0.05 pu."
     annotation (Dialog(group="P-f droop controller parameters"));
   parameter Real Tr=0.01 "Filter time constant, sec. Normal Range: [0.01 - 0.1 sec.]"
@@ -67,8 +68,9 @@ equation
   connect(pfdroop.Pref, Pref)
     annotation (Line(points={{-24,0},{-40,0},{-40,80},{-220,80}},
                                                 color={0,0,127}));
-  connect(Plimsig.y,pfdroop. Plim_in)
-    annotation (Line(points={{-19,-50},{-8,-50},{-8,-24}}, color={0,0,127}));
+  if usePlimsig then
+    connect(Plimsig.y, pfdroop.Plim_in) annotation (Line(points={{-19,-50},{-8,-50},{-8,-24}}, color={0,0,127}));
+  end if;
   connect(Edelta0, pfdroop.Edelta0) annotation (Line(points={{80,-220},{80,-180},
           {8,-180},{8,-24}},color={0,0,127}));
   connect(pfdroop.delta_droop, delta_droop)

@@ -1,8 +1,7 @@
 within OpenIPSL.Electrical.GFCs.GFMs.LimitersAndCntrlSchemes;
 model P_f_droop_scheme "P-f droop control scheme with limiter input"
   extends
-    OpenIPSL.Electrical.GFCs.GFMs.BasicComponentsAndCntrlSchemes.pf_droop_scheme_nolims(break
-      Plimsig);
+    OpenIPSL.Electrical.GFCs.GFMs.BasicComponentsAndCntrlSchemes.pf_droop_scheme_nolims(usePlimsig=false);
   OpenIPSL.Electrical.GFCs.GFMs.LimitersAndCntrlSchemes.Plimiter
     plimiter(
     Pmax=Pmax,

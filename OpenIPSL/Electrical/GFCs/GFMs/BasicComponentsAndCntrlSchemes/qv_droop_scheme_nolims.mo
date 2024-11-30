@@ -22,6 +22,7 @@ model qv_droop_scheme_nolims
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   parameter Real EMax=1.15 "Max. Edroop";
   parameter Real EMin=0 "Min. Edroop";
+  parameter Boolean useQlimsig = true "Enable or disable Plimsig connection";
   Modelica.Blocks.Sources.BooleanConstant QVFlag_val(k=QVFlag_val_k)
     "QVFlag = true/false switches the Qref input. QVFlag = 0 = false, Qref = Qfilt = Qinv. QVFlag = 1 = true, Qref = 0."
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
@@ -116,8 +117,10 @@ initial equation
     E0 = Emag0 "Assign the value of the internal voltage magnitude of the voltage source";
     V0 = Vt0 "Assign the value coming from the voltage source to the initial value of V0 used by the filter block";
 equation
-  connect(Qlimsig.y, qv_drp1.Qlim)
-    annotation (Line(points={{-30,-79},{-30,-48}},       color={0,0,127}));
+  if useQlimsig then
+    connect(Qlimsig.y, qv_drp1.Qlim)
+      annotation (Line(points={{-30,-79},{-30,-48}},color={0,0,127}));
+  end if;
   connect(Qfilt.y, qv_drp1.Qfilt) annotation (Line(points={{-159,-160},{-152,-160},
           {-152,-100},{-80,-100},{-80,-24},{-66,-24}},
                                color={0,0,127}));
